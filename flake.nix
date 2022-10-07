@@ -13,24 +13,14 @@
           inherit system;
           config = { allowUnfree = true; };
         };
-
-        prettier = pkgs.stdenv.mkDerivation {
-          name = "prettier";
-
-          src = self;
-
-          buildInputs = [ pkgs.nodePackages.prettier ];
-
-          installPhase = ''
-            mkdir -p $out/bin
-            ln -s ${pkgs.nodePackages.prettier}/bin/prettier $out/bin/
-          '';
-        };
       in
       {
         # nix run
         apps = {
-          default = flake-utils.lib.mkApp { drv = prettier; };
+          default = {
+            type = "app";
+            program = "${pkgs.nodePackages.prettier}/bin/prettier";
+          };
         };
 
         # nix shell
