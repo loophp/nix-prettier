@@ -13,26 +13,16 @@
           inherit system;
           config = { allowUnfree = true; };
         };
+        inherit (pkgs.nodePackages) prettier;
       in
       {
-        # nix run
-        apps = {
-          default = {
-            type = "app";
-            program = "${pkgs.nodePackages.prettier}/bin/prettier";
-          };
-        };
-
-        # nix shell
-        packages.default = pkgs.buildEnv {
-          name = "prettier-dev";
-          paths = [ pkgs.nodePackages.prettier ];
-        };
+        # nix shell and nix run
+        packages.default = prettier;
 
         # nix develop
         devShells.default = pkgs.mkShellNoCC {
           name = "prettier-dev";
-          buildInputs = [ pkgs.nodePackages.prettier ];
+          buildInputs = [ prettier ];
         };
       }
     );
