@@ -36,13 +36,13 @@
         # nix shell
         packages.default = pkgs.buildEnv {
           name = "prettier-dev";
-          paths = [ prettier ];
+          paths = [ pkgs.nodePackages.prettier ];
         };
 
         # nix develop
         devShells.default = pkgs.mkShellNoCC {
           name = "prettier-dev";
-          buildInputs = [ prettier ];
+          buildInputs = [ pkgs.nodePackages.prettier ];
         };
       }
     );
